@@ -48,9 +48,16 @@ public class Skynet {
                     PinResponse ping = PinResponse.Decode(in);
 //                    System.out.printf("ping code = %d", ping.code);
                     break;
-                case Constant.MSG_AUTH_RESPONSE:
+                case Constant.MSG_KICKOFF_NOTIFY:
                     AuthResponse auth = AuthResponse.Decode(in);
                     System.out.printf("auth code = %d, account = %s", auth.code, auth.account);
+                    break;
+                case Constant.MSG_AUTH_RESPONSE:
+//                    byte[] bodyBytes = new byte[head.payloadLength];
+//                    in.read(bodyBytes, 0, head.payloadLength);
+//                    System.out.printf(Arrays.toString(bodyBytes));
+                    KickoffNotify kickoffNotify = KickoffNotify.Decode(in);
+                    System.out.printf("您的账号已经在其它设备登陆 code = %d", kickoffNotify.code);
                     break;
                 case Constant.MSG_MESSAGE_RESPONSE:
                     MessageResponse msg = MessageResponse.Decode(in);

@@ -8,6 +8,8 @@ import com.company.task.MsgTask;
 import com.company.task.PingTask;
 import com.company.task.ReadThread;
 import com.company.task.RoomPingTask;
+import com.company.util.ByteUtils;
+import com.company.util.Constant;
 
 import java.util.Timer;
 
@@ -17,7 +19,10 @@ public class Client2 {
         try {
             short auth_c = 4102;
             String account = "test02";
-            AuthRequest auth = new AuthRequest(account);
+            long timestamp = (long) (System.currentTimeMillis() / 1000);
+            String authStr = account + timestamp + Constant.AUTH_SECRET;
+            String authToken = ByteUtils.Md5(authStr);
+            AuthRequest auth = new AuthRequest(account, authToken);
             byte[] req_bytes = auth.Encode();
             Header header = new Header(auth_c);
             header.payloadLength = req_bytes.length;
@@ -38,7 +43,7 @@ public class Client2 {
             Timer timer = new Timer();
             //延迟3秒后执行任务
             timer.scheduleAtFixedRate(new PingTask(skynet), 3000, 3000);
-            timer.schedule(new RoomPingTask(skynet), 3000);//单位是毫秒
+            timer.scheduleAtFixedRate(new RoomPingTask(skynet), 3000, 6000);//单位是毫秒
 //            timer.scheduleAtFixedRate(new MsgTask(skynet, "test02", "test01"), 4000, 8000);
             ReadThread readThread = new ReadThread(skynet);
             readThread.start();

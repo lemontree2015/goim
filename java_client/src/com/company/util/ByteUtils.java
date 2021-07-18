@@ -3,6 +3,7 @@ package com.company.util;
 import java.io.IOException;
 import java.io.UTFDataFormatException;
 import java.nio.ByteBuffer;
+import java.security.MessageDigest;
 
 public class ByteUtils {
     public static byte[] byteMerger(byte[]... bytes) {
@@ -193,5 +194,34 @@ public class ByteUtils {
         byte[] string_bytes = ByteUtils.byteMerger(ByteUtils.ShortToByte2(str_len), str_bytes);
         String str = ByteUtils.BytesToString(string_bytes);
         return str;
+    }
+
+    public static byte[] longToBytes(long x) {
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.putLong(0, x);
+        return buffer.array();
+    }
+
+    public static long bytesToLong(byte[] bytes) {
+        ByteBuffer buffer = ByteBuffer.allocate(8);
+        buffer.put(bytes, 0, bytes.length);
+        buffer.flip();//need flip
+        return buffer.getLong();
+    }
+
+    public static String Md5(String original) {
+        try {
+            MessageDigest m = MessageDigest.getInstance("MD5");
+            m.update(original.getBytes("UTF8"));
+            byte s[] = m.digest();
+            String result = "";
+            for (int i = 0; i < s.length; i++) {
+                result += Integer.toHexString((0x000000FF & s[i]) | 0xFFFFFF00).substring(6);
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

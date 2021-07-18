@@ -10,20 +10,26 @@ import com.company.message.AuthRequest;
 import com.company.net.Skynet;
 import com.company.task.ReadThread;
 import com.company.task.RoomPingTask;
+import com.company.util.ByteUtils;
 import com.company.util.Constant;
+
+import java.util.Arrays;
 
 public class Client {
 
     //函数入口
     public static void main(String[] args) {
         try {
+            long timestamp = (long) (System.currentTimeMillis() / 1000);
             short echo_c = 4099;
             short auth_c = Constant.MSG_AUTH_REQUEST;
 //            String Msg = "需要服务器的正确的IP地址和端口号";
 //            String Msg = "需要服务器的正确的IP地址和端口号";
 //            EchoRequest echo = new EchoRequest(Msg);
             String account = "test01";
-            AuthRequest auth = new AuthRequest(account);
+            String authStr = account + timestamp + Constant.AUTH_SECRET;
+            String authToken = ByteUtils.Md5(authStr);
+            AuthRequest auth = new AuthRequest(account, authToken);
 //
             byte[] req_bytes = auth.Encode();
             Header header = new Header(auth_c);
