@@ -36,6 +36,8 @@ chat_restapi HTTP Restapi接口
 $ ./chat_restapi --conf_path=/配制文件路径
 ```
 
+java_client为客户端使用示例，java水平有限，欢迎java、ios大佬提交客户端SDK
+
 ## 项目文档持续更新中，使用中如有疑问联系微信备注:github
 ![image](http://img1.sscmgroup.com/avatar/wx.jpg)
 
