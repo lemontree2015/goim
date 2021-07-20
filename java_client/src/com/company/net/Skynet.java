@@ -89,6 +89,12 @@ public class Skynet {
                     RoomPingResponse roomPingResponse = RoomPingResponse.Decode(in);
                     System.out.printf("roomPingResponse...%d", roomPingResponse.code);
                     break;
+                case Constant.MSG_LEAVE_CHATROOM_RESPONSE:
+//                    byte[] bodyBytes = new byte[head.payloadLength];
+//                    in.read(bodyBytes, 0, head.payloadLength);
+//                    System.out.printf(Arrays.toString(bodyBytes));
+                    LeaveChatRoomResponse LeaveResp = LeaveChatRoomResponse.Decode(in);
+                    System.out.printf("您已被踢出房间roomId=%s", LeaveResp.code, LeaveResp.roomId);
                 case Constant.MSG_LEAVE_CHATROOM_NOTIFY:
 //                    byte[] bodyBytes = new byte[head.payloadLength];
 //                    in.read(bodyBytes, 0, head.payloadLength);

@@ -17,5 +17,6 @@ public class Constant {
     public static final short MSG_ENTER_CHATROOM_NOTIFY = 4131;
     public static final short MSG_TOUCH_CHATROOM_REQUEST = 4129;
     public static final short MSG_TOUCH_CHATROOM_RESPONSE = 4130;
+    public static final short MSG_LEAVE_CHATROOM_RESPONSE = 4133;
     public static final short MSG_LEAVE_CHATROOM_NOTIFY = 4134;
 }
